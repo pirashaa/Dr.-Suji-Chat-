@@ -1,0 +1,7 @@
+{
+  "name": "Dr.Suji Chat",
+  "description": "Advanced medical AI assistant offering expert guidance, multi-specialist perspectives, and comprehensive health management strategies.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
