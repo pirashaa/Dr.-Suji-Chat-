@@ -140,6 +140,33 @@ export const storageService = {
     }
   },
 
+  clearSessionMessages: async (sessionId: string) => {
+    // Local Update
+    const localData = localStorage.getItem(STORAGE_KEY);
+    if (localData) {
+      const sessions: ChatSession[] = JSON.parse(localData);
+      const index = sessions.findIndex(s => s.id === sessionId);
+      if (index !== -1) {
+        sessions[index].messages = [];
+        sessions[index].lastUpdated = Date.now();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+      }
+    }
+
+    // Firebase Update
+    if (db) {
+      try {
+        const sessionRef = doc(db, 'sessions', sessionId);
+        await updateDoc(sessionRef, {
+          messages: [],
+          lastUpdated: Date.now()
+        });
+      } catch (err) {
+        console.error("Firestore clear messages error:", err);
+      }
+    }
+  },
+
   deleteSession: async (id: string) => {
     if (db) {
       try {

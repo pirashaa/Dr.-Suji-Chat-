@@ -11,7 +11,7 @@ import ChatInput from '../components/ChatInput';
 import OfflinePermissionModal from '../components/OfflinePermissionModal';
 import EmergencyAlert from '../components/EmergencyAlert';
 import { speakText, stopSpeaking } from '../services/voiceService';
-import { Clock, DownloadCloud, StopCircle, Bot, Activity, Brain, Search, Database, Stethoscope, FileText, ShieldCheck, Sparkles, FileDown } from 'lucide-react';
+import { Clock, DownloadCloud, StopCircle, Bot, Activity, Brain, Search, Database, Stethoscope, FileText, ShieldCheck, Sparkles, FileDown, Trash2 } from 'lucide-react';
 import { EMERGENCY_KEYWORDS } from '../constants';
 
 const EXAMPLE_PROMPTS = [
@@ -74,7 +74,247 @@ const EXAMPLE_PROMPTS = [
   "Natural ways to lower fever.",
   "What causes ringing in ears?",
   "How to improve digestion?",
-  "Healthy snack ideas."
+  "Healthy snack ideas.",
+  "What are the symptoms of appendicitis?",
+  "How to treat a bee sting?",
+  "Is it safe to exercise while sick?",
+  "Foods to avoid during pregnancy.",
+  "What causes muscle cramps at night?",
+  "How to lower cholesterol naturally?",
+  "Signs of iron deficiency anemia.",
+  "Best exercises for sciatic nerve pain.",
+  "How to get rid of dandruff?",
+  "What is the Mediterranean diet?",
+  "Symptoms of food poisoning.",
+  "How to measure blood pressure at home?",
+  "Natural remedies for constipation.",
+  "What causes heart palpitations?",
+  "Tips for better mental focus.",
+  "How to treat acne scars.",
+  "Signs of gum disease.",
+  "What is metabolic syndrome?",
+  "Benefits of green tea.",
+  "How to manage chronic fatigue?",
+  "What are the stages of sleep?",
+  "How to prevent osteoporosis?",
+  "Symptoms of a urinary tract infection (UTI).",
+  "How to treat a nosebleed.",
+  "What foods are high in fiber?",
+  "Causes of dry eyes.",
+  "How to boost metabolism.",
+  "What is vertigo?",
+  "Signs of depression in teenagers.",
+  "How to relieve sinus congestion.",
+  "Benefits of turmeric and curcumin.",
+  "What is the difference between type 1 and type 2 diabetes?",
+  "How to treat a sunburn.",
+  "What causes swollen ankles?",
+  "Foods that help with inflammation.",
+  "How to improve lung capacity.",
+  "What is leaky gut syndrome?",
+  "Signs of a panic attack.",
+  "How to lower blood sugar quickly.",
+  "Best sources of plant-based protein.",
+  "What is the glycemic index?",
+  "How to treat fungal nail infections.",
+  "Symptoms of kidney infection.",
+  "How to improve blood circulation.",
+  "What causes excessive sweating?",
+  "Natural remedies for insomnia.",
+  "How to do CPR.",
+  "What is endometriosis?",
+  "Signs of hormonal imbalance.",
+  "How to reduce salt intake.",
+  "Benefits of probiotics.",
+  "What causes joint stiffness?",
+  "How to treat a fever blister.",
+  "What is shingles?",
+  "Symptoms of pneumonia.",
+  "How to prevent deep vein thrombosis (DVT).",
+  "What is a deviated septum?",
+  "How to treat eczema flare-ups.",
+  "Signs of liver damage.",
+  "What foods contain probiotics?",
+  "How to manage social anxiety.",
+  "What is fibromyalgia?",
+  "How to treat a blister.",
+  "Symptoms of gallstones.",
+  "How to improve memory.",
+  "What is tinnitus?",
+  "Signs of heat exhaustion.",
+  "How to treat poison ivy.",
+  "What causes chest tightness?",
+  "Benefits of magnesium.",
+  "How to stop hiccups.",
+  "What is rosacea?",
+  "Symptoms of mono (mononucleosis).",
+  "How to prevent cavities.",
+  "What causes bad cholesterol?",
+  "How to treat a sty in the eye.",
+  "What is psoriasis?",
+  "Signs of an allergic reaction.",
+  "How to remove a tick.",
+  "What is sleep hygiene?",
+  "Symptoms of carpal tunnel syndrome.",
+  "How to strengthen your core.",
+  "What causes restless leg syndrome?",
+  "Benefits of drinking water.",
+  "How to treat a toothache.",
+  "What is prediabetes?",
+  "Signs of low testosterone.",
+  "How to improve gut health.",
+  "What causes blurred vision?",
+  "How to treat chapped lips.",
+  "What is anemia?",
+  "Symptoms of bronchitis.",
+  "How to prevent athlete's foot.",
+  "What causes dark circles under eyes?",
+  "Benefits of apple cider vinegar.",
+  "How to treat a bruise.",
+  "What is celiac disease?",
+  "Signs of eating disorders.",
+  "How to manage anger.",
+  "What causes ear infections?",
+  "How to improve balance.",
+  "What is a rotator cuff injury?",
+  "Symptoms of pink eye (conjunctivitis).",
+  "How to prevent flu.",
+  "What causes hair thinning?",
+  "Benefits of ginger.",
+  "How to treat a corn or callus.",
+  "What is lupus?",
+  "Signs of chronic stress.",
+  "How to improve flexibility.",
+  "What causes cold hands and feet?",
+  "How to treat a hangover.",
+  "What is neuropathy?",
+  "Symptoms of appendicitis in kids.",
+  "How to prevent varicose veins.",
+  "What causes bloating after eating?",
+  "Benefits of yoga.",
+  "How to treat a canker sore.",
+  "What is hypothermia?",
+  "Signs of a concussion.",
+  "How to improve mood naturally.",
+  "What causes frequent urination?",
+  "How to treat a black eye.",
+  "What is glaucoma?",
+  "Symptoms of Crohn's disease.",
+  "How to prevent back pain.",
+  "What causes skin tags?",
+  "Benefits of dark chocolate.",
+  "How to treat an ingrown toenail.",
+  "What is meningitis?",
+  "Signs of sepsis.",
+  "How to improve cardiovascular endurance.",
+  "What causes night sweats?",
+  "How to treat a chemical burn.",
+  "What is autoimmune disease?",
+  "Symptoms of ulcerative colitis.",
+  "How to prevent wrinkles.",
+  "What causes dry mouth?",
+  "Benefits of avocado.",
+  "How to treat a muscle strain.",
+  "What is histamine intolerance?",
+  "Signs of burnout.",
+  "How to manage seasonal affective disorder?",
+  "What are the benefits of walking daily?",
+  "Foods to help with muscle recovery.",
+  "Signs of dehydration in children.",
+  "How to treat a splinter.",
+  "Symptoms of scarlet fever.",
+  "How to remove ear wax safely.",
+  "What is the BRAT diet?",
+  "Signs of a concussion in children.",
+  "How to treat a jellyfish sting.",
+  "Benefits of drinking coconut water.",
+  "What causes leg cramps?",
+  "How to improve grip strength.",
+  "Symptoms of heat stroke vs heat exhaustion.",
+  "Natural remedies for tooth pain.",
+  "What is sleep paralysis?",
+  "How to prevent motion sickness.",
+  "Signs of OCD.",
+  "Benefits of cold showers.",
+  "What causes brittle nails?",
+  "How to treat a spider bite.",
+  "Symptoms of rabies in humans.",
+  "What is deep breathing?",
+  "Signs of B12 deficiency.",
+  "How to improve focus without caffeine.",
+  "What causes eye twitching?",
+  "Benefits of oatmeal.",
+  "How to treat a jammed finger.",
+  "Symptoms of rubella.",
+  "How to prevent chafing.",
+  "What is impetigo?",
+  "Signs of whooping cough.",
+  "How to manage wrist pain.",
+  "Benefits of stretching.",
+  "What causes white spots on nails?",
+  "How to treat a paper cut.",
+  "Symptoms of tetanus.",
+  "How to prevent ingrown hairs.",
+  "What is a panic disorder?",
+  "Signs of ADHD in adults.",
+  "How to improve wrist flexibility.",
+  "Benefits of swimming.",
+  "What causes cracked heels?",
+  "How to soothe a crying baby.",
+  "Symptoms of chickenpox.",
+  "How to prevent blisters when running.",
+  "What is a stress fracture?",
+  "Signs of dyslexia.",
+  "How to improve ankle stability.",
+  "Benefits of cycling.",
+  "What causes yellow teeth?",
+  "How to treat a mosquito bite.",
+  "Symptoms of measles.",
+  "How to prevent shin splints.",
+  "What is tendinitis?",
+  "Signs of autism in toddlers.",
+  "How to improve handwriting ergonomics.",
+  "Benefits of hiking.",
+  "What causes dark elbows?",
+  "How to treat a cut lip.",
+  "Symptoms of mumps.",
+  "How to prevent runner's knee.",
+  "What is bursitis?",
+  "Signs of bipolar disorder.",
+  "How to improve shoulder mobility.",
+  "Benefits of jumping rope.",
+  "What causes puffy eyes?",
+  "How to treat a scraped knee.",
+  "Symptoms of hand, foot, and mouth disease.",
+  "How to prevent tennis elbow.",
+  "What is scoliosis?",
+  "Signs of schizophrenia.",
+  "How to improve hip flexibility.",
+  "Benefits of pilates.",
+  "What causes dry skin in winter?",
+  "How to treat a stubbed toe.",
+  "Symptoms of fifth disease.",
+  "How to prevent plantar fasciitis.",
+  "What is kyphosis?",
+  "Signs of eating too much sugar.",
+  "How to improve neck mobility.",
+  "Benefits of resistance training.",
+  "What causes oily skin?",
+  "How to treat a smashed finger.",
+  "Symptoms of croup.",
+  "How to prevent lower back pain while sitting.",
+  "What is lordosis?",
+  "Signs of caffeine overdose.",
+  "How to improve reaction time.",
+  "Benefits of tai chi.",
+  "What causes split ends?",
+  "How to treat a friction burn.",
+  "Symptoms of RSV.",
+  "How to prevent computer vision syndrome.",
+  "What is sciatica?",
+  "Signs of nicotine withdrawal.",
+  "How to improve lung health.",
+  "Benefits of sauna."
 ];
 
 const THINKING_STEPS = [
@@ -208,60 +448,93 @@ const ChatPage: React.FC = () => {
   const handleExportPDF = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 20;
     const maxWidth = pageWidth - (margin * 2);
     
-    // Header
+    // Helper to add footer with pagination and disclaimer
+    const addFooter = (pageNo: number) => {
+        doc.setFontSize(8);
+        doc.setTextColor(150, 150, 150); // Gray
+        
+        // Page Number
+        doc.text(`Page ${pageNo}`, pageWidth - margin - 15, pageHeight - 10);
+        
+        // Disclaimer (Multi-line)
+        const disclaimer = "DISCLAIMER: This report is generated by Dr.Suji AI. It is for informational purposes only and does not constitute a medical diagnosis or professional medical advice. Always consult a qualified healthcare provider for medical concerns.";
+        const footerLines = doc.splitTextToSize(disclaimer, maxWidth - 20); 
+        doc.text(footerLines, margin, pageHeight - 15);
+    };
+
+    // Header (First Page)
     doc.setFontSize(22);
+    doc.setFont("helvetica", "bold");
     doc.setTextColor(13, 148, 136); // Teal 600
     doc.text("Dr.Suji Chat", margin, 20);
     
     doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(100, 116, 139); // Slate 500
     doc.text("Medical Consultation Report", margin, 26);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, margin, 31);
+    doc.text(`Generated: ${new Date().toLocaleString()}`, margin, 31);
     
+    doc.setDrawColor(203, 213, 225); // Slate 300 line
+    doc.setLineWidth(0.5);
     doc.line(margin, 36, pageWidth - margin, 36);
 
     let yPos = 46;
+    let pageNum = 1;
 
-    // Content
+    // Iterate Messages
     messages.forEach((msg) => {
        const isUser = msg.role === 'user';
-       const roleName = isUser ? "Patient:" : "Dr.Suji AI:";
-       
-       // Role Label
-       doc.setFontSize(11);
-       doc.setFont("helvetica", "bold");
-       doc.setTextColor(isUser ? 37 : 13, isUser ? 99 : 148, isUser ? 235 : 136); // Blue or Teal
-       
-       // Check page bounds
-       if (yPos > 270) {
+       const roleName = isUser ? "Patient" : "Dr.Suji AI";
+       const roleColor: [number, number, number] = isUser ? [59, 130, 246] : [13, 148, 136]; // Blue / Teal
+
+       // Clean Markdown and format text
+       let cleanContent = msg.content
+         .replace(/\*\*/g, '')      // Remove bold syntax
+         .replace(/###/g, '')       // Remove H3
+         .replace(/##/g, '')        // Remove H2
+         .replace(/#/g, '')         // Remove H1
+         .replace(/`/g, '')         // Remove code ticks
+         .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links, keep text
+         .replace(/!\[.*?\]\(.*?\)/g, '[Image]') // Remove images
+         .replace(/\n\n/g, '\n');   // Reduce double newlines
+
+       // Indent lists
+       cleanContent = cleanContent.replace(/^\s*-\s/gm, '  • ');
+
+       const contentLines = doc.splitTextToSize(cleanContent, maxWidth);
+       const requiredHeight = 10 + (contentLines.length * 5) + 10; // Header + body + spacing
+
+       // Check if we need a new page
+       if (yPos + requiredHeight > pageHeight - 25) { 
+         addFooter(pageNum);
          doc.addPage();
+         pageNum++;
          yPos = 20;
        }
        
+       // Draw Role Header
+       doc.setFontSize(11);
+       doc.setFont("helvetica", "bold");
+       doc.setTextColor(...roleColor);
        doc.text(roleName, margin, yPos);
        yPos += 6;
-
-       // Content Body
+       
+       // Draw Content
+       doc.setFontSize(10);
        doc.setFont("helvetica", "normal");
        doc.setTextColor(51, 65, 85); // Slate 700
-       doc.setFontSize(10);
-
-       // Clean markdown for PDF basic text
-       const cleanContent = msg.content
-         .replace(/\*\*/g, '') // bold
-         .replace(/#/g, '') // headers
-         .replace(/`/g, '') // code
-         .replace(/\n\n/g, '\n'); 
-
-       const lines = doc.splitTextToSize(cleanContent, maxWidth);
        
-       lines.forEach((line: string) => {
-         if (yPos > 280) {
-            doc.addPage();
-            yPos = 20;
+       contentLines.forEach((line: string) => {
+         // Safety check for overflow within a single long message
+         if (yPos > pageHeight - 25) {
+             addFooter(pageNum);
+             doc.addPage();
+             pageNum++;
+             yPos = 20;
          }
          doc.text(line, margin, yPos);
          yPos += 5;
@@ -270,26 +543,20 @@ const ChatPage: React.FC = () => {
        yPos += 8; // Spacing between messages
     });
     
-    // Footer / Disclaimer
-    doc.setFontSize(8);
-    doc.setTextColor(150, 150, 150);
-    const disclaimer = "DISCLAIMER: This report is generated by an AI assistant and is for informational purposes only. It does not constitute a medical diagnosis. Consult a qualified physician for medical advice.";
-    const footerLines = doc.splitTextToSize(disclaimer, maxWidth);
+    // Footer on the last page
+    addFooter(pageNum);
     
-    // Position at bottom of last page or new page
-    if (yPos > 260) {
-        doc.addPage();
-        yPos = 20;
-    }
-    
-    doc.line(margin, yPos, pageWidth - margin, yPos);
-    yPos += 5;
-    footerLines.forEach((line: string) => {
-       doc.text(line, margin, yPos);
-       yPos += 4;
-    });
+    doc.save(`DrSuji_Medical_Report_${new Date().toISOString().slice(0,10)}.pdf`);
+  };
 
-    doc.save(`DrSuji_Report_${new Date().toISOString().slice(0,10)}.pdf`);
+  const handleClearChat = async () => {
+    if (!sessionId || messages.length === 0) return;
+    
+    if (window.confirm("Are you sure you want to clear this conversation? This action cannot be undone.")) {
+      await storageService.clearSessionMessages(sessionId);
+      setMessages([]);
+      setLastUpdated(Date.now());
+    }
   };
 
   const handleSendMessage = async (content: string) => {
@@ -452,10 +719,21 @@ const ChatPage: React.FC = () => {
           {messages.length > 0 && (
             <button
               onClick={handleExportPDF}
-              className="p-2 text-slate-500 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hidden sm:flex"
+              className="p-2 text-slate-500 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex"
               title="Download Medical Report (PDF)"
             >
               <FileDown size={20} />
+            </button>
+          )}
+
+          {/* Clear Chat Button */}
+          {messages.length > 0 && (
+            <button
+              onClick={handleClearChat}
+              className="p-2 text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex"
+              title="Clear Conversation"
+            >
+              <Trash2 size={20} />
             </button>
           )}
 
@@ -491,7 +769,7 @@ const ChatPage: React.FC = () => {
               I simulate the collective intelligence of thousands of experts across diverse medical fields. Ask me anything about symptoms, 
               diseases, diet plans, or mental health.
             </p>
-            {/* Display 4 random prompts from the 60 examples */}
+            {/* Display 4 random prompts from the examples */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-lg">
               {suggestedPrompts.map((text) => (
                 <button 

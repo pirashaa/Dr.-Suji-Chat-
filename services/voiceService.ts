@@ -148,12 +148,19 @@ export const startListening = (
   recognition.continuous = options.continuous ?? false;
   recognition.interimResults = options.interimResults ?? false;
   
-  // Smart language detection
-  let lang = options.language;
-  if (!lang || lang === 'auto') {
-    lang = (typeof navigator !== 'undefined' && navigator.language) ? navigator.language : 'en-US';
+  // Improved Language Detection Logic
+  // 1. If options.language is explicitly provided and not 'auto', use it.
+  // 2. Otherwise, prefer navigator.language (Browser System Default)
+  // 3. Fallback to 'en-US'
+  let langToUse = 'en-US';
+
+  if (options.language && options.language !== 'auto') {
+    langToUse = options.language;
+  } else if (typeof navigator !== 'undefined' && navigator.language) {
+    langToUse = navigator.language;
   }
-  recognition.lang = lang;
+
+  recognition.lang = langToUse;
 
   recognition.onresult = (event: any) => {
     let finalChunk = '';
